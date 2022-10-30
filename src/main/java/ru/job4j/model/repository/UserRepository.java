@@ -21,12 +21,9 @@ public class UserRepository {
         Session session = sf.openSession();
         try {
             session.beginTransaction();
-            session.createNativeQuery(
-                            "INSERT INTO auto_user (login, password) VALUES (:uLgn, :uPwd)")
-                    .setParameter("uLgn", user.getLogin())
-                    .setParameter("uPwd", user.getPassword())
-                    .executeUpdate();
+            session.save(user);
             session.getTransaction().commit();
+            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
@@ -47,6 +44,7 @@ public class UserRepository {
                     .setParameter("uId", user.getId())
                     .executeUpdate();
             session.getTransaction().commit();
+            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
@@ -61,10 +59,11 @@ public class UserRepository {
         try {
             session.beginTransaction();
             session.createQuery(
-                            "DELETE User AS u WHERE u.id = :uId")
+                            "DELETE User WHERE id = :uId")
                     .setParameter("uId", userId)
                     .executeUpdate();
             session.getTransaction().commit();
+            session.close();
         } catch (Exception e) {
             session.getTransaction().rollback();
         }
@@ -76,8 +75,12 @@ public class UserRepository {
      */
     public List<User> findAllOrderById() {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("FROM User AS u ORDER BY u.id ASC");
-        return query.getResultList();
+        session.beginTransaction();
+        Query<User> query = session.createQuery("FROM User ORDER BY id ASC");
+        List<User> result = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 
     /**
@@ -87,9 +90,13 @@ public class UserRepository {
      */
     public Optional<User> findById(int userId) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("FROM User AS u WHERE u.id = :uId");
+        session.beginTransaction();
+        Query<User> query = session.createQuery("FROM User WHERE id = :uId");
         query.setParameter("uId", userId);
-        return query.uniqueResultOptional();
+        Optional<User> result = query.uniqueResultOptional();
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 
     /**
@@ -99,9 +106,13 @@ public class UserRepository {
      */
     public List<User> findByLikeLogin(String key) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("FROM User AS u WHERE u.login LIKE :uKey");
+        session.beginTransaction();
+        Query<User> query = session.createQuery("FROM User WHERE login LIKE :uKey");
         query.setParameter("uKey", "%" + key + "%");
-        return query.getResultList();
+        List<User> result = query.getResultList();
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 
     /**
@@ -111,8 +122,12 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         Session session = sf.openSession();
-        Query<User> query = session.createQuery("FROM User AS u WHERE u.login = :uLgn");
+        session.beginTransaction();
+        Query<User> query = session.createQuery("FROM User WHERE login = :uLgn");
         query.setParameter("uLgn", login);
-        return query.uniqueResultOptional();
+        Optional<User> result = query.uniqueResultOptional();
+        session.getTransaction().commit();
+        session.close();
+        return result;
     }
 }

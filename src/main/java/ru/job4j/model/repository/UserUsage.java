@@ -14,8 +14,8 @@ public class UserUsage {
                 .buildMetadata().buildSessionFactory()) {
             var userRepository = new UserRepository(sf);
             var user = new User();
-            user.setLogin("admin1");
-            user.setPassword("admin1");
+            user.setLogin("admin");
+            user.setPassword("admin");
             userRepository.create(user);
             System.out.println(user);
             userRepository.findAllOrderById()
