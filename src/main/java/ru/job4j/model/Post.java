@@ -30,5 +30,5 @@ public class Post {
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private List<User> participates;
+    private List<User> participates = new ArrayList<>();
 }
