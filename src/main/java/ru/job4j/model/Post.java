@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,7 +23,7 @@ public class Post {
     private User user;
     @OneToMany
     @JoinColumn(name = "post_id")
-    private List<PriceHistory> priceHistory;
+    private List<PriceHistory> priceHistory = new ArrayList<>();
     @ManyToMany
     @JoinTable(
             name = "participates",
