@@ -17,4 +17,5 @@
 	<include file="scripts/007_ddl_alter_table_add_driver_table.sql" relativeToChangelogFile="true"/>
 	<include file="scripts/008_ddl_alter_table_add_history_owner_table.sql" relativeToChangelogFile="true"/>
 	<include file="scripts/009_ddl_alter_table_auto_post_add_car_id_column.sql" relativeToChangelogFile="true"/>
+	<include file="scripts/010_ddl_alter_table_auto_post_add_photo_column.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

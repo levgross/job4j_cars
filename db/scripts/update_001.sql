@@ -7,6 +7,6 @@ CREATE TABLE IF NOT EXISTS auto_user (
 CREATE TABLE IF NOT EXISTS auto_post (
   id SERIAL PRIMARY KEY,
   text VARCHAR,
-  created TIMESTAMP NOT NULL,
+  created TIMESTAMP WITHOUT TIME ZONE DEFAULT now(),
   user_id INT NOT NULL REFERENCES auto_user (id)
 );
