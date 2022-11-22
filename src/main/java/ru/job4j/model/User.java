@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "auto_user")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -17,7 +17,7 @@ public class Car {
     @Include
     private int id;
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -25,5 +25,6 @@ public class Car {
             @JoinColumn(name = "car_id", nullable = false, updatable = false)},
             inverseJoinColumns = {
             @JoinColumn(name = "driver_id", nullable = false, updatable = false)})
+    @ToString.Exclude
     private Set<Driver> owners = new HashSet<>();
 }

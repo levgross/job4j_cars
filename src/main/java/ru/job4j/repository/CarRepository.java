@@ -60,7 +60,7 @@ public class CarRepository {
      */
     public Optional<Car> findById(int carId) {
         return crudRepository.optional(
-                "from Car c join fetch c.engine join fetch c.owners where c.id = :fId", Car.class,
+                "from Car where id = :fId", Car.class,
                 Map.of("fId", carId)
         );
     }
@@ -70,7 +70,7 @@ public class CarRepository {
      * @param name car name
      * @return list of cars.
      */
-    public List<Car> findByName(int name) {
+    public List<Car> findByName(String name) {
         return crudRepository.query(
                 "from Car c join fetch c.engine where c.name = :fName", Car.class,
                 Map.of("fName", name)

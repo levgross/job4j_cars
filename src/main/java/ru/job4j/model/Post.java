@@ -23,16 +23,18 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
+    @ToString.Exclude
     private List<PriceHistory> priceHistory = new ArrayList<>();
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "participates",
+            name = "participants",
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private List<User> participates = new ArrayList<>();
+    @ToString.Exclude
+    private List<User> participants = new ArrayList<>();
     @OneToOne
     @JoinColumn(name = "car_id")
     private Car car;

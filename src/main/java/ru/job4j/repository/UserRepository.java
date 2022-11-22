@@ -13,9 +13,9 @@ import java.util.Optional;
 public class UserRepository {
     private final CrudRepository crudRepository;
     /**
-     * Сохранить в базе.
-     * @param user пользователь.
-     * @return пользователь с id.
+     * Save in database.
+     * @param user User.
+     * @return User with id.
      */
     public Optional<User> create(User user) {
         try {
@@ -27,15 +27,15 @@ public class UserRepository {
     }
 
     /**
-     * Обновить в базе пользователя.
-     * @param user пользователь.
+     * Update User in database.
+     * @param user User.
      */
     public void update(User user) {
         crudRepository.run(session -> session.merge(user));
     }
 
     /**
-     * Удалить пользователя по id.
+     * Delete User by id.
      * @param userId ID
      */
     public void delete(int userId) {
@@ -46,17 +46,17 @@ public class UserRepository {
     }
 
     /**
-     * Список пользователей, отсортированных по id.
-     * @return список пользователей.
+     * Find all users ordered by id.
+     * @return list of users.
      */
     public List<User> findAllOrderById() {
         return crudRepository.query("from User order by id", User.class);
     }
 
     /**
-     * Найти пользователя по ID
-     *
-     * @return пользователь.
+     * Find User by id
+     * @param userId ID
+     * @return User.
      */
     public Optional<User> findById(int userId) {
         return crudRepository.optional(
@@ -66,9 +66,9 @@ public class UserRepository {
     }
 
     /**
-     * Список пользователей по login LIKE %key%
+     * Find users by login LIKE %key%
      * @param key key
-     * @return список пользователей.
+     * @return list of users.
      */
     public List<User> findByLikeLogin(String key) {
        return crudRepository.query(
@@ -78,9 +78,9 @@ public class UserRepository {
     }
 
     /**
-     * Найти пользователя по login.
+     * Find User by login.
      * @param login login.
-     * @return Optional or user.
+     * @return User.
      */
     public Optional<User> findByLogin(String login) {
         return crudRepository.optional(
